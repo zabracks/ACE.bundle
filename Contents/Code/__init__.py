@@ -12,14 +12,8 @@ def MainMenu():
   oc = ObjectContainer(title2 = 'ACE')
   oc.add(
     DirectoryObject(
-      key = Callback(ArenavisionList, title = 'Arenavision'),
-      title = 'Arenavision'
-    )
-  )
-  oc.add(
-    DirectoryObject(
-      key = Callback(RedditList, title = 'Reddit/Soccerstreams'),
-      title = 'Reddit/Soccerstreams'
+      key = Callback(RedditList, title = 'Reddit/cfbstreams'),
+      title = 'Reddit/cfbstreams'
     )
   )
   return oc
@@ -98,7 +92,7 @@ def RedditList(title):
       title = 'Refresh'
     )
   )
-  html = HTML.ElementFromURL('https://www.reddit.com/r/soccerstreams/')
+  html = HTML.ElementFromURL('https://www.reddit.com/r/cfbstreams/')
   for item in html.xpath('//a[.//*[contains(translate(text(), "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz"), " vs")]]'):
     title = (item.xpath('./h2/text()')[0]).decode('utf-8')
     href = item.get('href');
