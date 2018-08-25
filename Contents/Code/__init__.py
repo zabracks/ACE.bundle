@@ -92,16 +92,17 @@ def RedditList(title):
       title = 'Refresh'
     )
   )
-  html = HTML.ElementFromURL('https://www.reddit.com/r/cfbstreams/')
-  for item in html.xpath('//a[.//*[contains(translate(text(), "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz"), " vs")]]'):
-    title = (item.xpath('./h2/text()')[0]).decode('utf-8')
-    href = item.get('href');
-    oc.add(
-      DirectoryObject(
-        key = Callback(RedditSubList, title = title, url = href),
-        title = title
+  for s in ['https://www.reddit.com/r/cfbstreams/', 'https://www.reddit.com/r/nflstreams/']:
+    html = HTML.ElementFromURL(s)
+    for item in html.xpath('//a[.//*[contains(translate(text(), "ABCDEFGHJIKLMNOPQRSTUVWXYZ", "abcdefghjiklmnopqrstuvwxyz"), " vs")]]'):
+      title = (item.xpath('./h2/text()')[0]).decode('utf-8')
+      href = item.get('href');
+      oc.add(
+        DirectoryObject(
+          key = Callback(RedditSubList, title = title, url = href),
+          title = title
+        )
       )
-    )
   return oc
 
 @route('/video/ace/redditsublist')
